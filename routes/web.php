@@ -14,9 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('page.feed');
+});
+Route::get('/homes', function () {
+    return view('page.homes');
+});
+Route::get('/register/home', function () {
+    return view('page.new-home');
+});
+Route::get('/h/{home}', function ($home) {
+    if($h = App\Models\Home::where('slug', $home)) {
+        return view('page.home')->with(['home' => $h->first()]);
+    } else {
+        abort(404);
+    }
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return redirect('/');
+    // return view('dashboard');
 })->name('dashboard');

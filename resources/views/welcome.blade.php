@@ -30,15 +30,17 @@
                                 components for ReactJS, Vue and Angular.
                             </p> --}}
                     <div class="mt-12">
-                        <a href="javascript:void(0)" onclick=" window.scrollBy(0, 200);"
+                        <a href="javascript:void(0)" onclick=" window.scrollBy(0, 550);"
                             class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-pink-500 active:bg-pink-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
                             Get started
                         </a>
+                        @guest
                         <a href="/login"
                             class="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                             target="_blank">
                             Login
                         </a>
+                        @endguest
                     </div>
                 </div>
             </div>
