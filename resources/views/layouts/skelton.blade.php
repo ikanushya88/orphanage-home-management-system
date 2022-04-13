@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Favicon -->
-    <link href="/template/images/favicon.png" rel="icon" type="image/png">
+    <link href="/logo.png" rel="icon" type="image/png">
     <!-- Basic Page Needs ================================================== -->
     <title>Transwin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Socialite is - Professional A unique and beautiful collection of UI elements">
+    <meta name="description" content="LightHouse is - Professional A unique and beautiful collection of UI elements">
 
     <!-- icons ================================================== -->
     <link rel="stylesheet" href="/css/app.css" />
@@ -236,6 +236,17 @@
     <script src="/template/js/custom.js"></script>
     <script src="/template/js/bootstrap-select.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+    <script>
+        const showDetailComplaint = (title, content) => {
+            $.alert({
+                title: title,
+                content: content,
+            });
+        }
+    </script>
 
 </body>
 </html>

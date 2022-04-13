@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Feed;
 use App\Models\Home;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -18,6 +19,10 @@ class NormalFeed extends Component
     public $loadFeedModal = false;
     public $post_images = [];
 
+    protected $listeners = [
+        '$refresh'
+    ];
+
     public function mount() {
         if ($this->home == 0 && auth()->user()->homes()->count()) {
             $home = auth()->user()->homes()->first();
@@ -27,8 +32,36 @@ class NormalFeed extends Component
         }
     }
 
+    protected $rules = [
+        'txt' => 'required|min:6',
+    ];
+
     public function render() {
         return view('livewire.normal-feed')->extends('layouts.layout');
+    }
+
+    public function share() {
+        $this->validate();
+        // 
+        $feed = Feed::create([
+            'user_id' => auth()->id(),
+            'content' => $this->txt,
+            'slug' => \sprintf('/p/%s/%s', auth()->id(), time()),
+            'home_id' => $this->home,
+        ]);
+
+        if (count($this->post_images) > 0) {
+            $i = 1;
+            $_main_folder = 'public/feed/'.$feed->id.'/';
+            foreach ($this->post_images as $img) {
+                $img_mv = explode('.', $img);
+                \Storage::move($img, $_main_folder.'images/img-'.sprintf('%02d', $i++).'.'.end($img_mv));
+            }
+        }
+        $this->post_images = [];
+        $this->txt = '';
+        $this->emitTo('feeder-block', '$refresh');
+        // $this->dispatchBrowserEvent('feeded');
     }
 
     public function homeChange($id) {

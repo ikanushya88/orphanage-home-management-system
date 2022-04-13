@@ -3,7 +3,7 @@
     <div class="sidebar_inner" data-simplebar>
         <img src="/logo.png" alt="">
         <ul>
-            <li class="active">
+            <li @if(isset($menu) && $menu == 'feed') class="active" @endif>
                 <a href="/">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-blue-500">
                         <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
@@ -13,14 +13,14 @@
                     <span> News Feed </span>
                 </a>
             </li>
-            <li><a href="/homes">
+            <li @if(isset($menu) && $menu == 'homes') class="active" @endif><a href="/homes">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-blue-600">
                         <path
                             d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                     </svg>
                     <span> Homes </span> </a>
             </li>
-            <li><a href="/fundraise">
+            <li @if(isset($menu) && $menu == 'fundraise') class="active" @endif><a href="/fundraise">
                     <svg fill="currentColor" class="text-red-500" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
                             d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
@@ -28,7 +28,7 @@
                     </svg>
                     <span> Fundraiser </span></a>
             </li>
-            <li><a href="/complaints">
+            <li @if(isset($menu) && $menu == 'complaint') class="active" @endif><a href="/complaints">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                         class="text-blue-500">
                         <path
@@ -190,52 +190,64 @@
             </a> --}}
 
         </div>
-
-        {{-- <ul class="side_links" data-sub-title="Pages">
+        @if(auth()->user()->current_team_id)
+        <ul class="side_links" data-sub-title="Administration">
+            @if(in_array(auth()->user()->current_team_id, [1, 3]))
             <li><a href="feed.html">
-                    <ion-icon name="settings-outline" class="side-icon"></ion-icon> <span> Setting </span>
+                    <ion-icon name="settings-outline" class="side-icon"></ion-icon> <span> Approvals </span>
                 </a>
                 <ul>
-                    <li><a href="pages-setting.html">layout 1</a></li>
-                    <li><a href="pages-setting2.html">layout 2</a></li>
+                    <li><a href="/admin/approvals/home">Home Approvals</a></li>
+                    <li><a href="/admin/approvals/fundraise">Fundraise Approvals</a></li>
                 </ul>
             </li>
+            @endif
+
+            @if(in_array(auth()->user()->current_team_id, [1, 5]))
             <li><a href="#">
-                    <ion-icon name="albums-outline" class="side-icon"></ion-icon> <span> Info Pages </span>
+                    <ion-icon name="albums-outline" class="side-icon"></ion-icon> <span> Child Care </span>
                 </a>
                 <ul>
-                    <li><a href="pages-about.html"> About </a></li>
-                    <li><a href="pages-contact.html"> Contact us </a></li>
-                    <li><a href="pages-privacy.html"> Privacy </a></li>
+                    <li><a href="/admin/complaints"> Complaints </a></li>
+                    {{-- <li><a href="pages-contact.html"> Contact us </a></li>
+                    <li><a href="pages-privacy.html"> Privacy </a></li> --}}
                 </ul>
             </li>
+            @endif
+
+            @if(in_array(auth()->user()->current_team_id, [1, 2]))
             <li><a href="#">
-                    <ion-icon name="document-outline" class="side-icon"></ion-icon> <span> Create Content </span>
+                    <ion-icon name="document-outline" class="side-icon"></ion-icon> <span> Accounts </span>
                 </a>
                 <ul>
-                    <li><a href="create-group.html"> Create Group </a></li>
-                    <li><a href="create-page.html"> Create Page </a></li>
+                    <li><a href="/admin/payout"> Payout Funds </a></li>
+                    <li><a href="/admin/report"> Fund Report </a></li>
                 </ul>
             </li>
+            @endif
+
+            @if(in_array(auth()->user()->current_team_id, [1, 4]))
             <li><a href="#">
-                    <ion-icon name="code-slash-outline" class="side-icon"></ion-icon> <span> Development </span>
+                    <ion-icon name="code-slash-outline" class="side-icon"></ion-icon> <span> Users </span>
                 </a>
                 <ul>
-                    <li><a href="development-components.html"> Compounents </a></li>
-                    <li><a href="development-plugins.html"> Plugins </a></li>
-                    <li><a href="development-icons.html"> Icons </a></li>
+                    <li><a href="/admin/users"> Admins Management </a></li>
+                    {{-- <li><a href="development-plugins.html"> Plugins </a></li>
+                    <li><a href="development-icons.html"> Icons </a></li> --}}
                 </ul>
             </li>
-            <li><a href="#">
+            @endif
+            {{-- <li><a href="#">
                     <ion-icon name="log-in-outline" class="side-icon"></ion-icon> <span> Authentication </span>
                 </a>
                 <ul>
                     <li><a href="form-login.html">form login </a></li>
                     <li><a href="form-register.html">form register</a></li>
                 </ul>
-            </li>
+            </li> --}}
 
-        </ul> --}}
+        </ul>
+        @endif
 
         <div class="footer-links">
             <a href="#">About</a>

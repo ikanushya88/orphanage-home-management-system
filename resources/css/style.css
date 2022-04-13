@@ -48,6 +48,7 @@ span.button, button.button {
   border-radius: 4px;
   -webkit-box-shadow: 0 4px 12px rgba(42, 65, 232, 0.15);
           box-shadow: 0 4px 12px rgba(42, 65, 232, 0.15);
+  height: auto;
 }
 
 input[type="button"], input[type="submit"] {

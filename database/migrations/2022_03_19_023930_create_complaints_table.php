@@ -16,11 +16,9 @@ return new class extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->timestamp('complaint_at')->nullable();
+            $table->string('title');
             $table->text('complaint');
-            $table->string('evidence')->nullable();
             $table->integer('admin_id')->nullable();
-            $table->text('action')->nullable();
             $table->string('status')->default('waiting');
             $table->timestamps();
         });

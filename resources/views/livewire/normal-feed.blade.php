@@ -12,7 +12,7 @@
             </div>
             <div class="line p-4">
                 <div class="flex bg-gray-50 border border-purple-100 rounded-2xl p-2 shadow-sm items-center">
-                    <div class=" ml-1"> Add your Cover Image <small>(1200px x 600px)</small></div>
+                    <div class=" ml-1"> Add Images</div>
                     <div class="flex flex-1 items-center lg:justify-end justify-center space-x-2">
                         <div>
                             <div wire:loading wire:target="image_upload">
@@ -41,6 +41,7 @@
                     <input type='file' class="hidden" id="image_upload" wire:model='image_upload' multiple />
                 </div>
                 @error('image_upload.*') <span class="text-xs text-red-600 font-bold">{{$message}} </span> @enderror
+                @error('txt') <span class="text-xs text-red-600 font-bold">{{$message}} </span> @enderror
             </div>
             <div class="border-t grid md:grid-cols-5 grid-cols-2 mt-10 gap-3">
                 @if ($post_images)
@@ -59,17 +60,14 @@
                 </select>
         
                 <div class="flex space-x-2">
-                    <a href="#" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium"> Share </a>
+                    <a href="javascript:void(0)" wire:click='share' id="btn-feed-sharer" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium"> Share </a>
                 </div>
         
-                <a href="#" hidden
+                <a href="javascript:void(0)" wire:click='share' hidden
                     class="bg-blue-600 flex h-9 items-center justify-center rounded-lg text-white px-12 font-semibold"> Share </a>
             </div>
         </div>
     </div>
 
-    <!-- Craete post modal -->
-    <div id="create-post-modal" class="create-post is-story" uk-modal>
-            
-    </div>
+    
 </div>

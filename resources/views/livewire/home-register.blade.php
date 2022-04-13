@@ -93,7 +93,7 @@
             <div class="w-full md:inline-flex gap-3">
                 <div class="w-full md:w-1/3 mt-3 md:mt-0">
                     <div class="line">
-                        <input class="line__input" id="contact_number" name="contact_number" wire:model='contact_number' type="text" value=""
+                        <input class="line__input" id="contact_number" name="contact_number" wire:model='contact_number' type="number" value=""
                             autocomplete="off" placeholder=" Contact Number">
                         {{-- <span for="contact_number" class="line__placeholder"> </span> --}}
                     </div>

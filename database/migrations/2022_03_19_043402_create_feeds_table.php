@@ -24,8 +24,9 @@ return new class extends Migration
             $table->string('slug');
             $table->integer('approved_by')->nullable();
             $table->timestamp('approved_at')->nullable();
-            $table->integer('home_id');
+            $table->integer('home_id')->nullable();
             $table->string('cover_image')->nullable();
+            $table->string('status')->default('ACTIVE');
             $table->timestamps();
         });
     }

@@ -18,53 +18,12 @@
             </div>
 
             <!-- search icon for mobile -->
-            <div class="header-search-icon" uk-toggle="target: #wrapper ; cls: show-searchbox"> </div>
-            <div class="header_search"><i class="uil-search-alt"></i>
-                <input value="" type="text" class="form-control" placeholder="Search for Homes..."
-                    autocomplete="off">
-                <div uk-drop="mode: click" class="header_search_dropdown">
-
-                    <h4 class="search_title"> Recently </h4>
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <img src="/template/images/avatars/avatar-1.jpg" alt="" class="list-avatar">
-                                <div class="list-name"> Erica Jones </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/template/images/avatars/avatar-2.jpg" alt="" class="list-avatar">
-                                <div class="list-name"> Coffee Addicts </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/template/images/avatars/avatar-3.jpg" alt="" class="list-avatar">
-                                <div class="list-name"> Mountain Riders </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/template/images/avatars/avatar-4.jpg" alt="" class="list-avatar">
-                                <div class="list-name"> Property Rent And Sale </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/template/images/avatars/avatar-5.jpg" alt="" class="list-avatar">
-                                <div class="list-name"> Erica Jones </div>
-                            </a>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
+            <livewire:search-bar />
 
             <div class="right_side">
 
                 <div class="header_widgets">
-                    <a href="pages-upgrade.html" class="is_link"> Upgrade </a>
+                    {{-- <a href="pages-upgrade.html" class="is_link"> Upgrade </a>
                     <a href="#" class="is_icon" uk-tooltip="title: Cart">
                         <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -185,200 +144,68 @@
                             <p> Subtotal : $ 320 </p>
                             <h1> Total : <strong> $ 320</strong> </h1>
                         </div>
-                    </div>
-
+                    </div>--}}
                     <a href="#" class="is_icon" uk-tooltip="title: Notifications">
                         <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
                             </path>
                         </svg>
-                        <span>3</span>
+                        <span>{{count(auth()->user()->unreadNotifications)}}</span>
                     </a>
                     <div uk-drop="mode: click" class="header_dropdown">
                         <div class="dropdown_scrollbar" data-simplebar>
                             <div class="drop_headline">
                                 <h4>Notifications </h4>
                                 <div class="btn_action">
-                                    <a href="#" data-tippy-placement="left" title="Notifications">
+                                    {{-- <a href="#" data-tippy-placement="left" title="Notifications">
                                         <ion-icon name="settings-outline"></ion-icon>
-                                    </a>
-                                    <a href="#" data-tippy-placement="left" title="Mark as read all">
+                                    </a> --}}
+                                    <a href="javascript:void(0)" onclick="markAsReadAll()" data-tippy-placement="left" title="Mark as read all">
                                         <ion-icon name="checkbox-outline"></ion-icon>
                                     </a>
                                 </div>
                             </div>
                             <ul>
+                                @forelse(auth()->user()->unreadNotifications as $notification)
                                 <li>
                                     <a href="#">
                                         <div class="drop_avatar">
                                             <img src="/template/images/avatars/avatar-1.jpg" alt="">
                                         </div>
+                                        @if($notification->type == 'App\Notifications\Approval')
                                         <span class="drop_icon bg-gradient-primary">
                                             <i class="icon-feather-thumbs-up"></i>
                                         </span>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Adrian Mohani</strong> Like Your Comment On Video
-                                                <span class="text-link">Learn Prototype Faster </span>
-                                            </p>
-                                            <time> 2 hours ago </time>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="not-read">
-                                    <a href="#">
-                                        <div class="drop_avatar status-online"> <img
-                                                src="/template/images/avatars/avatar-2.jpg" alt="">
-                                        </div>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Stella Johnson</strong> Replay Your Comments in
-                                                <span class="text-link">Adobe XD Tutorial</span>
-                                            </p>
-                                            <time> 9 hours ago </time>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="/template/images/avatars/avatar-3.jpg"
-                                                alt="">
-                                        </div>
-                                        <span class="drop_icon bg-gradient-primary">
-                                            <i class="icon-feather-thumbs-up"></i>
+                                        @else
+                                        <span class="drop_icon bg-gradient-danger">
+                                            <i class="icon-feather-thumbs-down"></i>
                                         </span>
+                                        @endif
                                         <div class="drop_text">
+                                            @php 
+                                            $data = $notification->data;
+                                            $topic = isset($data['model']['name']) ? $data['model']['name'] : $data['model']['title'];
+                                            @endphp
                                             <p>
-                                                <strong>Alex Dolgove</strong> Added New Review In Video
-                                                <span class="text-link">Full Stack PHP Developer</span>
+                                                @if($notification->type == 'App\Notifications\Approval')
+                                                Admin approved {{$topic}}
+                                                @else
+                                                <strong>{{$topic}}</strong> <p class="truncate">{{$data['note']}}</p>
+                                                @endif
                                             </p>
-                                            <time> 12 hours ago </time>
+                                            <time> {{$notification->created_at->diffForHumans()}} </time>
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="/template/images/avatars/avatar-1.jpg"
-                                                alt="">
-                                        </div>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Jonathan Madano</strong> Shared Your Discussion On
-                                                Video
-                                                <span class="text-link">Css Flex Box </span>
-                                            </p>
-                                            <time> Yesterday </time>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="/template/images/avatars/avatar-1.jpg"
-                                                alt="">
-                                        </div>
-                                        <span class="drop_icon bg-gradient-primary">
-                                            <i class="icon-feather-thumbs-up"></i>
-                                        </span>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Adrian Mohani</strong> Like Your Comment On Course
-                                                <span class="text-link">Javascript Introduction </span>
-                                            </p>
-                                            <time> 2 hours ago </time>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar status-online"> <img
-                                                src="/template/images/avatars/avatar-2.jpg" alt="">
-                                        </div>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Stella Johnson</strong> Replay Your Comments in
-                                                <span class="text-link">Programming for Games</span>
-                                            </p>
-                                            <time> 9 hours ago </time>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="/template/images/avatars/avatar-2.jpg"
-                                                alt="">
-                                        </div>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Stella Johnson</strong> Replay Your Comments in
-                                                <span class="text-link">Programming for Games</span>
-                                            </p>
-                                            <time> 9 hours ago </time>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="/template/images/avatars/avatar-3.jpg"
-                                                alt="">
-                                        </div>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Alex Dolgove</strong> Added New Review In Course
-                                                <span class="text-link">Full Stack PHP Developer</span>
-                                            </p>
-                                            <time> 12 hours ago </time>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="/template/images/avatars/avatar-1.jpg"
-                                                alt="">
-                                        </div>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Jonathan Madano</strong> Shared Your Discussion On
-                                                Course
-                                                <span class="text-link">Css Flex Box </span>
-                                            </p>
-                                            <time> Yesterday </time>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="/template/images/avatars/avatar-1.jpg"
-                                                alt="">
-                                        </div>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Adrian Mohani</strong> Like Your Comment On Course
-                                                <span class="text-link">Javascript Introduction </span>
-                                            </p>
-                                            <time> 2 hours ago </time>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="/template/images/avatars/avatar-2.jpg"
-                                                alt="">
-                                        </div>
-                                        <div class="drop_text">
-                                            <p>
-                                                <strong>Stella Johnson</strong> Replay Your Comments in
-                                                <span class="text-link">Programming for Games</span>
-                                            </p>
-                                            <time> 9 hours ago </time>
-                                        </div>
-                                    </a>
-                                </li>
+                                @empty 
+                                No notifications found!
+                                @endforelse
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Message -->
+                    {{-- <!-- Message -->
                     <a href="#" class="is_icon" uk-tooltip="title: Message">
                         <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -449,7 +276,7 @@
                                 </li>
                                 <li class="un-read">
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="/template/images/avatars/avatar-2.jpg"
+                                        <div class="drop_avatar"> <img src="{{auth()->user()->profile_photo_url}}"
                                                 alt="">
                                         </div>
                                         <div class="drop_text">
@@ -494,34 +321,34 @@
                             </ul>
                         </div>
                         <a href="#" class="see-all"> See all in Messages</a>
-                    </div>
+                    </div> --}}
 
 
                     <a href="#">
-                        <img src="/template/images/avatars/avatar-2.jpg" class="is_avatar" alt="">
+                        <img src="{{auth()->user()->profile_photo_url}}" class="is_avatar" alt="">
                     </a>
                     <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
 
                         <a href="timeline.html" class="user">
                             <div class="user_avatar">
-                                <img src="/template/images/avatars/avatar-2.jpg" alt="">
+                                <img src="{{auth()->user()->profile_photo_url}}" alt="">
                             </div>
                             <div class="user_name">
-                                <div> Stella Johnson </div>
-                                <span> @johnson</span>
+                                <div> {{auth()->user()->name}} </div>
+                                <span> {{auth()->user()->email}}</span>
                             </div>
                         </a>
                         <hr>
-                        <a href="pages-upgrade.html" class="is-link">
+                        <a href="/register/home" class="is-link">
                             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            Upgrade To Premium </span>
+                            Create Home </span>
                         </a>
                         <hr>
-                        <a href="page-setting.html">
+                        <a href="/user/profile">
                             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
@@ -529,24 +356,7 @@
                             </svg>
                             My Account
                         </a>
-                        <a href="groups.html">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Manage Pages
-                        </a>
-                        <a href="pages-setting.html">
-                            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
-                                <path fill-rule="evenodd"
-                                    d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            My Billing
-                        </a>
-                        <a href="#" id="night-mode" class="btn-night-mode">
+                        {{-- <a href="#" id="night-mode" class="btn-night-mode">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                             </svg>
@@ -554,8 +364,8 @@
                             <span class="btn-night-mode-switch">
                                 <span class="uk-switch-button"></span>
                             </span>
-                        </a>
-                        <a href="form-login.html">
+                        </a> --}}
+                        <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit()">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -564,7 +374,7 @@
                             </svg>
                             Log Out
                         </a>
-
+                        <form action="{{ route('logout') }}" method="post" id="logout-form"> @csrf </form>
 
                     </div>
 

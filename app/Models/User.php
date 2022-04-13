@@ -27,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'current_team_id'
     ];
 
     /**
@@ -60,6 +61,6 @@ class User extends Authenticatable
     ];
 
     public function homes() {
-        return $this->belongsToMany(Home::class);
+        return $this->belongsToMany(Home::class)->withTimestamps();
     }
 }

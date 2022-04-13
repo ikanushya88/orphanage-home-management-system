@@ -6,14 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Favicon -->
-        <link href="/template/images/favicon.png" rel="icon" type="image/png">
+        <link href="/logo.png" rel="icon" type="image/png">
 
         <!-- Basic Page Needs
         ================================================== -->
-        <title>Socialite Template</title>
+        <title>Children's LightHouse</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Socialite is - Professional A unique and beautiful collection of UI elements">
+        <meta name="description" content="LightHouse is - Professional A unique and beautiful collection of UI elements">
 
         <!-- icons
     ================================================== -->
@@ -139,14 +139,14 @@
         </div>
 
         <!-- open chat box -->
-        <div uk-toggle="target: #offcanvas-chat" class="start-chat">
+        {{-- <div uk-toggle="target: #offcanvas-chat" class="start-chat">
             <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
                 </path>
             </svg>
-        </div>
+        </div> --}}
 
         <div id="offcanvas-chat" uk-offcanvas="flip: true; overlay: true">
             <div class="uk-offcanvas-bar bg-white p-0 w-full lg:w-80 shadow-2xl">
@@ -574,38 +574,33 @@
 
         <!-- For Night mode -->
         <script>
-            (function (window, document, undefined) {
-            'use strict';
-            if (!('localStorage' in window)) return;
-            var nightMode = localStorage.getItem('gmtNightMode');
-            if (nightMode) {
-                document.documentElement.className += ' night-mode';
-            }
-        })(window, document);
+        // (function (window, document, undefined) {
+        //     'use strict';
+        //     var nightMode = localStorage.getItem('gmtNightMode');
+        //     if (nightMode == true) {
+        //         document.documentElement.className += ' night-mode';
+        //         localStorage.setItem('gmtNightMode', true);
+        //     } else {
+        //         localStorage.setItem('gmtNightMode', false);
+        //     }
+        // })(window, document);
     
-        (function (window, document, undefined) {
+        // (function (window, document, undefined) {
+        //     'use strict';
+        //     var nightMode = document.querySelector('#night-mode');
+        //     if (!nightMode) return;
+        //     // When clicked, toggle night mode on or off
+        //     nightMode.addEventListener('click', function (event) {
+        //         event.preventDefault();
+        //         document.documentElement.classList.toggle('dark');
+        //         if (document.documentElement.classList.contains('dark')) {
+        //             localStorage.setItem('gmtNightMode', true);
+        //             return;
+        //         }
+        //         localStorage.setItem('gmtNightMode', false);
+        //     }, false);
     
-            'use strict';
-    
-            // Feature test
-            if (!('localStorage' in window)) return;
-    
-            // Get our newly insert toggle
-            var nightMode = document.querySelector('#night-mode');
-            if (!nightMode) return;
-    
-            // When clicked, toggle night mode on or off
-            nightMode.addEventListener('click', function (event) {
-                event.preventDefault();
-                document.documentElement.classList.toggle('dark');
-                if (document.documentElement.classList.contains('dark')) {
-                    localStorage.setItem('gmtNightMode', true);
-                    return;
-                }
-                localStorage.removeItem('gmtNightMode');
-            }, false);
-    
-        })(window, document);
+        // })(window, document);
         </script>
 
         <!-- Javascript
@@ -618,9 +613,180 @@
         <script src="/template/js/custom.js"></script>
         <script src="/template/js/bootstrap-select.min.js"></script>
         <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+        <script src="/js/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="/css/sweetalert2.min.css" />
+
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+        <style>
+            .dt-button {
+            display: inline-block;
+            font-weight: 400;
+            color: #212529;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: transparent;
+            border: 1px solid lightgray;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s
+            ease-in-out;
+            }
+        </style>
+
+        <script>
+            function __toast(type, message) {
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+                });
+                Toast.fire({
+                    type: type,
+                    title: message
+                });
+            }
+            $(document).ready(function () {
+                @error('success')
+                __toast('success', '{{$message}}');
+                @enderror
+                @error('error')
+                __toast('error', '{{$message}}');
+                @enderror
+
+                var nightMode = localStorage.getItem('gmtNightMode');
+
+                $('.dt-table').DataTable({
+                dom: 'Bfrtip',
+                buttons: [ 'copy', 'csv', 'excel' ]
+                });
+
+                // if (nightMode) {
+                //     $(html).addClass('dark');
+                // }
+
+                // $('#night-mode').click(function (e) {
+                //     e.preventDefault();
+                //     if ($(html).hasClass(dark)) {
+                //         $(html).removeClass('dark');
+                //         localStorage.setItem('gmtNightMode', false);                            
+                //     } else {
+                //         $(html).addClass('dark');
+                //         localStorage.setItem('gmtNightMode', true);                                
+                //     }
+                    
+                // });
+            });
+
+            function deleteFeed(id) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value === true) {
+                        location.replace('/f/delete/'+id);
+                    }
+                });
+            }
+
+            function viewAdmin(photo, name, admin, page) {
+                if (admin == {{auth()->id()}}) {
+                    return false;
+                }
+                Swal.fire({
+                    title: `<img src="${photo}" class="w-24 h-24 rounded-full" />`,
+                    text: ` ${name}`,
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: 'lightgrey',
+                    confirmButtonText: 'Remove Admin'
+                }).then((result) => {
+                    if (result.value === true) {
+                        location.replace(`/admin/${admin}/delete/${page}`);
+                    }
+                });
+            }
+
+            async function addAdmin(home) {
+                const { value: email } = await Swal.fire({
+                    title: 'Input admin email address',
+                    input: 'email',
+                    inputLabel: 'admin email address',
+                    inputPlaceholder: "Enter admin's email address"
+                })
+                
+                if (email) {
+                    location.replace(`/admin/${email}/add/${home}`);
+                }
+            }
+        </script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+        
+        <script>
+            const showDetailComplaint = (title, content, btn = false) => {
+                if (btn) {
+                    $.alert({
+                        title: title,
+                        content: content,
+                        buttons: {
+                            formSubmit: {
+                                text: 'Add Followup',
+                                btnClass: 'btn-blue',
+                                action: function () {
+                                    insertNewFollowup(btn);
+                                }
+                            },
+                            cancel: function () {
+                                //close
+                            },
+                        },
+                    });
+                } else {
+                    $.alert({
+                        title: title,
+                        content: content,
+                    });
+                }
+            }
+
+            const markAsReadAll = () => {
+                $.get('/mark-as-read-all')
+                .done(() => {
+                    location.reload();
+                })
+            }
+        </script>
 
         @stack('modals')
         @livewireScripts
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+        @yield('scripts')
     </body>
 
 </html>

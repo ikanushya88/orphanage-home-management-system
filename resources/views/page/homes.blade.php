@@ -31,7 +31,14 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <a href="javascript:void(0)" class="font-semibold text-lg truncate"> {{$home->name}}
+                        <a href="javascript:void(0)" class="font-semibold text-lg truncate flex items-center gap-2"> {{$home->name}} 
+                            @if($home->verified_by)
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            @endif
                         </a>
                         <div class="flex items-center flex-wrap space-x-1 mt-1 text-sm text-gray-500 capitalize">
                             @if ($home->verified_by)
@@ -44,7 +51,7 @@
                         <div class="flex mt-3.5 space-x-2 text-sm font-medium">
                             <a href="/h/{{$home->slug}}"
                                 class="bg-blue-600 flex flex-1 h-8 items-center justify-center rounded-md text-white capitalize">
-                                VIEW
+                                @if(auth()->user()->homes()->where('home_id', $home->getKey())->count()) MANAGE @else VIEW @endif
                             </a>
                         </div>
                 
