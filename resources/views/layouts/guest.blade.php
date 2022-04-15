@@ -18,13 +18,13 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="text-blueGray-700">
-        @include('layouts.header')
+        {{-- @include('layouts.header') --}}
             
         <div class="">
             {{ $slot }}
         </div>
 
-        @include('layouts.footer')
+        {{-- @include('layouts.footer') --}}
 
         <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
         <script>

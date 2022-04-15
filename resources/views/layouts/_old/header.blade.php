@@ -72,7 +72,8 @@
                         Gallery</a>
                 </li>
             </ul>
-            <ul class="flex flex-col lg:flex-row list-none lg:ml-auto items-center">
+            <ul class="flex flex-col lg:flex-row list-none lg:ml-auto items-center mb-5 mt-5">
+                <div class="md:hidden border-t-2"></div>
                 {{-- <li class="inline-block relative">
                             <a class="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                                 href="#pablo" onclick="openDropdown(event,'demo-pages-dropdown')">
@@ -146,12 +147,26 @@
                                     class="text-blueGray-400 fab fa-github text-lg leading-lg"></i><span
                                     class="lg:hidden inline-block ml-2">Star</span></a>
                         </li> --}}
+                @auth
+                <li class="flex items-center justify-center">
+                    <div>Hello {{auth()->user()->name}}</div>
+                    <div>
+                        <a class="text-white bg-red-500 active:bg-red-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+                            href="#" onclick="document.getElementById('logout-form').submit()">
+                            <i class="fas fa-lock"></i> Logout
+                        </a>
+                        <form action="/logout" method="post" id="logout-form"> @csrf </form>
+                    </div>
+                </li>  
+                @endauth
+                @guest
                 <li class="flex items-center">
                     <a class="text-white bg-pink-500 active:bg-pink-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
                         href="/login">
                         <i class="fas fa-lock"></i> Login
                     </a>
                 </li>
+                @endguest
             </ul>
         </div>
     </div>

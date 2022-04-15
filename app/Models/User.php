@@ -27,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'current_team_id'
     ];
 
     /**
@@ -58,4 +59,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function homes() {
+        return $this->belongsToMany(Home::class)->withTimestamps();
+    }
 }

@@ -13,32 +13,25 @@
         </div>
     </div> --}}
 
-    <section class="header relative pt-16 items-center flex h-screen max-h-860-px">
+    {{-- <section class="header relative pt-16 items-center flex h-screen max-h-860-px">
         <div class="container mx-auto items-center flex flex-wrap">
             <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
                 <div class="pt-32 sm:pt-0">
                     <h2 class="font-semibold text-4xl text-blueGray-600">
                         Dedicated service to the needy Children
                     </h2>
-                    {{-- <p class="mt-4 text-lg leading-relaxed text-blueGray-500">
-                                Notus JS is Free and Open Source. It does not change any of the
-                                CSS from
-                                <a href="https://tailwindcss.com/?ref=creativetim" class="text-blueGray-600" target="_blank">
-                                    Tailwind CSS.
-                                </a>
-                                It features multiple HTML elements and it comes with dynamic
-                                components for ReactJS, Vue and Angular.
-                            </p> --}}
                     <div class="mt-12">
-                        <a href="javascript:void(0)" onclick=" window.scrollBy(0, 200);"
+                        <a href="javascript:void(0)" onclick=" window.scrollBy(0, 550);"
                             class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-pink-500 active:bg-pink-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
                             Get started
                         </a>
+                        @guest
                         <a href="/login"
                             class="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
-                            target="_blank">
+                            >
                             Login
                         </a>
+                        @endguest
                     </div>
                 </div>
             </div>
@@ -46,9 +39,9 @@
 
         <img class="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12 max-h-860-px"
             src="/img/banner.jpg" alt="...">
-    </section>
+    </section> --}}
 
-    <section class="mt-48 md:mt-40 pb-40 relative bg-blueGray-100">
+    <section class="my-auto md:mt-60 relative bg-blueGray-100">
         <div class="container mx-auto">
             <div class="flex flex-wrap items-center">
                 <div class="w-10/12 md:w-6/12 lg:w-4/12 px-12 md:px-4 mr-auto ml-auto -mt-32">
@@ -80,16 +73,33 @@
                         relocation &amp; disaster. They don;t decided to endure the side effects of such a significant
                         misforture, In any case you can decide to give them trust.
                     </p>
-                    {{-- <p class="mt-8 text-2xl font-bold">OLD AGE HOME</p>
-                            <p class="text-xl">
-                                One of the unique aspect of our organisation ... all our children have the support of our senior citizen who themselves are neglected by their kind. In return, the senior citizen get love and affection from the tiny ... when they need it.
-                            </p> --}}
+                    <div class="mt-12">
+                        @auth
+                        <a href="/"
+                            class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-pink-500 active:bg-pink-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
+                            Dashboard
+                        </a>
+                        @endauth
+                        @guest
+                        <a href="/register"
+                            class="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                            >
+                            Register
+                        </a>
+
+                        <a href="/login"
+                            class="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                            >
+                            Login
+                        </a>
+                        @endguest
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="block relative z-1 bg-red-600">
+    {{-- <section class="block relative z-1 bg-red-600">
         <div class="container mx-auto">
             <div class="justify-center flex flex-wrap">
                 <div class="w-full lg:w-12/12 px-4 -mt-24">
@@ -157,7 +167,7 @@
                     <p class="text-lg font-light leading-relaxed mt-0 mb-4 text-white">
                         Feel free to let us know about the child abuse complaints.
                     </p>
-                    <a href="https://github.com/creativetimofficial/notus-js?ref=njs-index" target="_blank"
+                    <a href="https://github.com/creativetimofficial/notus-js?ref=njs-index" 
                         class="github-star mt-4 inline-block text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
                         Make Complaint
                     </a>
@@ -188,7 +198,7 @@
                     </p>
                     <div class="sm:block flex flex-col mt-10">
                         <a href="https://www.creative-tim.com/learning-lab/tailwind/js/overview/notus?ref=njs-index"
-                            target="_blank"
+                            
                             class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-pink-500 active:bg-pink-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
                             Subscribe
                         </a>
@@ -197,5 +207,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 </x-guest-layout>
